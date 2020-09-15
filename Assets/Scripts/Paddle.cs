@@ -50,8 +50,6 @@ public class Paddle : MonoBehaviour
     {
         float move = Input.GetAxis(input) * Time.deltaTime * speed;
 
-        Debug.Log(Input.GetAxis(input));
-
         // Restrict paddle movement
         if(transform.position.y < GameManager.bottomLeft.y + height/2 && move < 0)
         {
