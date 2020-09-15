@@ -9,7 +9,7 @@ public class PaddleCPU : MonoBehaviour
     float height;
 
     string input;
-    public bool isRight = false;
+    public bool isRight;
     Ball ball; 
     public float offset;
     // Start is called before the first frame update
@@ -19,12 +19,27 @@ public class PaddleCPU : MonoBehaviour
         ball = FindObjectOfType<Ball>();
     }
 
-    public void Init()
+    public void Init(bool isRightPaddle)
     {
+        isRight = isRightPaddle;
         Vector2 pos = Vector2.zero;
 
-        pos = new Vector2(GameManager.bottomLeft.x, 0);
-        pos += Vector2.right * transform.localScale.x; // move bit to left
+        if (isRightPaddle)
+        {
+            pos = new Vector2(GameManager.topRight.x, 0);
+            pos -= Vector2.right * transform.localScale.x; //  move bit to right
+
+            input = "PaddleRight";
+        }
+
+        else
+        {
+            pos = new Vector2(GameManager.bottomLeft.x, 0);
+            pos += Vector2.right * transform.localScale.x; // move bit to left
+
+            input = "PaddleLeft";
+        }
+
         // Update this paddle's position
         transform.position = pos;
     }
@@ -50,6 +65,32 @@ public class PaddleCPU : MonoBehaviour
         {
             move = 0;
         }
+
+        if (isRight)
+        {
+            if (ball.transform.position.x < GameManager.topRight.x / 2)
+            {
+                speed = 1;
+            }
+            else
+            {
+                speed = 7;
+            }
+        }
+
+        if (!isRight)
+        {
+            if (ball.transform.position.x > GameManager.topRight.x / 2)
+            {
+                speed = 1.5f;
+            }
+            else
+            {
+                speed = 7;
+            }
+        }
+
+
         transform.Translate(move * Vector2.up);
     }
 }

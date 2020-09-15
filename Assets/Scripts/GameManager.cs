@@ -27,7 +27,14 @@ public class GameManager : MonoBehaviour
             Paddle paddle1 = Instantiate(paddle) as Paddle;
             PaddleCPU paddle2 = Instantiate(paddleCPU) as PaddleCPU;
             paddle1.Init(true); // right paddle
-            paddle2.Init(); // left paddle
+            paddle2.Init(false); // left paddle
+        }
+        else if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            PaddleCPU paddle1 = Instantiate(paddleCPU) as PaddleCPU;
+            PaddleCPU paddle2 = Instantiate(paddleCPU) as PaddleCPU;
+            paddle1.Init(true); // right paddle
+            paddle2.Init(false); // left paddle
         }
         else
         {
@@ -36,10 +43,5 @@ public class GameManager : MonoBehaviour
             paddle1.Init(true); // right paddle
             paddle2.Init(false); // left paddle
         }
-    }
-
-    public void test()
-    {
-        Debug.Log("yes!");
     }
 }

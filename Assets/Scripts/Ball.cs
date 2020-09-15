@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class Ball : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("PaddleHit");
             bool isRight = other.GetComponent<Paddle>().isRight;
-            if(speed < 10)
+            if(speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
 
@@ -72,7 +73,7 @@ public class Ball : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("PaddleHit");
             bool isRight = other.GetComponent<PaddleCPU>().isRight;
-            if (speed < 10)
+            if (speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
 
