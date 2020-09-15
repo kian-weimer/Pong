@@ -36,6 +36,6 @@ public class ScoreManager : MonoBehaviour
         elapsedTimeInMinutes = stopwatch.Elapsed.Minutes;
 
         elapsedTimeAsString = String.Format("{0:00}:{1:00}", elapsedTimeInMinutes, elapsedTimeInSeconds % 60);
-        UnityEngine.Debug.Log(elapsedTimeAsString);
+        
     }
 }

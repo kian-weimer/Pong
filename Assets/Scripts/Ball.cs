@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEditor.PackageManager.Requests;
 
 public class Ball : MonoBehaviour
 {
@@ -9,15 +8,27 @@ public class Ball : MonoBehaviour
     float speed;
 
     float radius;
-    Vector2 direction;
+    Vector2 direction = new Vector2(0,0);
 
-    // Start is called before the first frame update
     void Start()
     {
-        int yDirection = Random.Range(0, 1) * -2 + 1;
-        int xDirection = Random.Range(0, 1) * -2 + 1;
-        direction = new Vector2(xDirection, yDirection);
         radius = transform.localScale.x / 2;
+    }
+
+    public void Reset()
+    {
+        transform.position = new Vector2(0, 0);
+        transform.Translate(new Vector2(0, 0));
+        direction = new Vector2(0, 0);
+        speed = 5;
+        GameManager.gameStarted = false;
+        GameManager.gameStartTimer.Start();
+    }
+
+    public void StartMovingBall()
+    {
+        direction.x = Random.Range(0, 2) * -2 + 1;
+        direction.y = Random.Range(0, 2) * -2 + 1;
     }
 
     // Update is called once per frame
@@ -25,7 +36,7 @@ public class Ball : MonoBehaviour
     {
         transform.Translate(direction * speed * Time.deltaTime);
 
-        if(transform.position.y < GameManager.bottomLeft.y + radius && direction.y < 0)
+        if (transform.position.y < GameManager.bottomLeft.y + radius && direction.y < 0)
         {
             FindObjectOfType<AudioManager>().Play("WallHit");
             direction.y = -direction.y;
@@ -35,15 +46,17 @@ public class Ball : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("WallHit");
             direction.y = -direction.y;
         }
-
+        
         // Game Over
         if (transform.position.x < GameManager.bottomLeft.x + radius && direction.x < 0)
         {
             Debug.Log("Right Player Won!!");
+            Reset();
         }
         if (transform.position.x > GameManager.topRight.x - radius && direction.x > 0)
         {
             Debug.Log("Left Player Won!!");
+            Reset();
         }
     }
 
@@ -55,7 +68,6 @@ public class Ball : MonoBehaviour
             if(speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
-
             }
 
             if(isRight && direction.x > 0)
@@ -76,7 +88,6 @@ public class Ball : MonoBehaviour
             if (speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
-
             }
 
             if (isRight && direction.x > 0)

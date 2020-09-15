@@ -8,7 +8,6 @@ public class PaddleCPU : MonoBehaviour
     float speed;
     float height;
 
-    string input;
     public bool isRight;
     Ball ball; 
     public float offset;
@@ -18,7 +17,7 @@ public class PaddleCPU : MonoBehaviour
         height = transform.localScale.y;
         ball = FindObjectOfType<Ball>();
     }
-
+    
     public void Init(bool isRightPaddle)
     {
         isRight = isRightPaddle;
@@ -29,7 +28,6 @@ public class PaddleCPU : MonoBehaviour
             pos = new Vector2(GameManager.topRight.x, 0);
             pos -= Vector2.right * transform.localScale.x; //  move bit to right
 
-            input = "PaddleRight";
         }
 
         else
@@ -37,7 +35,6 @@ public class PaddleCPU : MonoBehaviour
             pos = new Vector2(GameManager.bottomLeft.x, 0);
             pos += Vector2.right * transform.localScale.x; // move bit to left
 
-            input = "PaddleLeft";
         }
 
         // Update this paddle's position
