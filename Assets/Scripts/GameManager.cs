@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public Paddle paddle;
     public PaddleCPU paddleCPU;
 
+    bool ballStarted = false;
+
     public static Vector2 bottomLeft;
     public static Vector2 topRight;
 
@@ -66,12 +68,18 @@ public class GameManager : MonoBehaviour
             HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - elapsedTimeInSeconds).ToString();
             if (elapsedTimeInSeconds == 3 && !gameStarted)
             {
+                ballStarted = false;
                 gameStarted = true;
                 gameStartTimer.Stop();
                 gameStartTimer.Reset();
                 HUD.transform.Find("StartTimer").gameObject.SetActive(false);
                 newBall.StartMovingBall();
             }
+        }
+        else if(!ballStarted)
+        {
+            ballStarted = true;
+            newBall.StartMovingBall();
         }
     }
 
