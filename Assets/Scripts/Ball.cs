@@ -21,7 +21,10 @@ public class Ball : MonoBehaviour
         transform.Translate(new Vector2(0, 0));
         direction = new Vector2(0, 0);
         speed = 5;
-        FindObjectOfType<GameManager>().ResetHUD();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            FindObjectOfType<GameManager>().ResetHUD();
+        }
         GameManager.beginGame = false;
         GameManager.gameStartTimer.Start();
     }

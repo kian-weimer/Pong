@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Ball ball;
-    Ball[] balls = new Ball[10];
+    Ball[] balls = new Ball[100];
     int ballCount = 1;
     public Paddle paddle;
     public PaddleCPU paddleCPU;
@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown("k") && Input.GetKeyDown("i") && Input.GetKeyDown("r") && Input.GetKeyDown("y"))
+        {
+            addBall();
+        }
         if (Input.anyKeyDown && !beginGame)
         {
             beginGame = true;
@@ -97,13 +101,12 @@ public class GameManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "MainMenu")
             {
                 ballStarted = true;
-                newBall.StartMovingBall();
-            ballStarted = true;
-            foreach (Ball b in balls)
-            {
-                if (b != null)
+                foreach (Ball b in balls)
                 {
-                    b.StartMovingBall();
+                    if (b != null)
+                    {
+                        b.StartMovingBall();
+                    }
                 }
             }
         }
