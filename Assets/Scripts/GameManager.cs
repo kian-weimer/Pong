@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public static Stopwatch gameStartTimer = new Stopwatch();
 
-    
+    public GameObject HUD;
 
     // Start is called before the first frame update
     void Start()
@@ -59,13 +60,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         double elapsedTimeInSeconds = gameStartTimer.Elapsed.Seconds;
-        
-        if(elapsedTimeInSeconds == 3 && !gameStarted)
+        HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - elapsedTimeInSeconds).ToString();
+        if (elapsedTimeInSeconds == 3 && !gameStarted)
         {
             gameStarted = true;
             gameStartTimer.Stop();
             gameStartTimer.Reset();
+            HUD.transform.Find("StartTimer").gameObject.SetActive(false);
             newBall.StartMovingBall();     
         }
+    }
+
+    public void ResetHUD()
+    {
+        HUD.transform.Find("StartTimer").gameObject.SetActive(true);
     }
 }
