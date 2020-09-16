@@ -14,4 +14,9 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName: "InGameScene");
     }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(sceneName: "MainMenu");
+    }
 }

@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         newBall = Instantiate(ball);
 
-        if(SceneManager.GetActiveScene().name == "SoloGame")
+        if (SceneManager.GetActiveScene().name == "SoloGame")
         {
             Paddle paddle1 = Instantiate(paddle) as Paddle;
             PaddleCPU paddle2 = Instantiate(paddleCPU) as PaddleCPU;
@@ -59,15 +59,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        double elapsedTimeInSeconds = gameStartTimer.Elapsed.Seconds;
-        HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - elapsedTimeInSeconds).ToString();
-        if (elapsedTimeInSeconds == 3 && !gameStarted)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            gameStarted = true;
-            gameStartTimer.Stop();
-            gameStartTimer.Reset();
-            HUD.transform.Find("StartTimer").gameObject.SetActive(false);
-            newBall.StartMovingBall();     
+            double elapsedTimeInSeconds = gameStartTimer.Elapsed.Seconds;
+
+            HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - elapsedTimeInSeconds).ToString();
+            if (elapsedTimeInSeconds == 3 && !gameStarted)
+            {
+                gameStarted = true;
+                gameStartTimer.Stop();
+                gameStartTimer.Reset();
+                HUD.transform.Find("StartTimer").gameObject.SetActive(false);
+                newBall.StartMovingBall();
+            }
         }
     }
 
