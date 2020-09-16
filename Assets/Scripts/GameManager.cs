@@ -14,11 +14,10 @@ public class GameManager : MonoBehaviour
     public PaddleCPU paddleCPU;
 
     bool ballStarted = false;
+    public static bool beginGame = false;
 
     public static Vector2 bottomLeft;
     public static Vector2 topRight;
-
-    public static bool gameStarted = false;
 
     public static Stopwatch gameStartTimer = new Stopwatch();
 
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameStartTimer.Start();
+        beginGame = false;
 
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
@@ -61,25 +60,37 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        if (Input.anyKeyDown && !beginGame)
         {
-            double elapsedTimeInSeconds = gameStartTimer.Elapsed.Seconds;
+            beginGame = true;
+            gameStartTimer.Stop();
+            gameStartTimer.Reset();
+            gameStartTimer.Start();
+            UnityEngine.Debug.Log("fuck on u");
+        }
 
-            HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - elapsedTimeInSeconds).ToString();
-            if (elapsedTimeInSeconds == 3 && !gameStarted)
+        if (SceneManager.GetActiveScene().name != "MainMenu" && beginGame)
+        {
+            double ballTimerSeconds = gameStartTimer.Elapsed.Seconds;
+            HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - ballTimerSeconds).ToString();
+            UnityEngine.Debug.Log(ballTimerSeconds.ToString());
+            if (ballTimerSeconds == 4)
             {
+                UnityEngine.Debug.Log("fuck u");
                 ballStarted = false;
-                gameStarted = true;
                 gameStartTimer.Stop();
                 gameStartTimer.Reset();
                 HUD.transform.Find("StartTimer").gameObject.SetActive(false);
                 newBall.StartMovingBall();
             }
         }
-        else if(!ballStarted)
+        else if(!ballStarted )
         {
-            ballStarted = true;
-            newBall.StartMovingBall();
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                ballStarted = true;
+                newBall.StartMovingBall();
+            }
         }
     }
 

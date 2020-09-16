@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
         direction = new Vector2(0, 0);
         speed = 5;
         FindObjectOfType<GameManager>().ResetHUD();
-        GameManager.gameStarted = false;
+        GameManager.beginGame = false;
         GameManager.gameStartTimer.Start();
     }
 

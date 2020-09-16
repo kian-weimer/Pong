@@ -18,5 +18,7 @@ public class ButtonManager : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(sceneName: "MainMenu");
+        GameManager.gameStartTimer.Stop();
+        GameManager.gameStartTimer.Reset();
     }
 }
