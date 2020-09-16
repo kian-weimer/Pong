@@ -52,11 +52,19 @@ public class Ball : MonoBehaviour
         if (transform.position.x < GameManager.bottomLeft.x + radius && direction.x < 0)
         {
             Debug.Log("Right Player Won!!");
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                FindObjectOfType<ScoreManager>().updatePlayerScore(true);
+            }
             Reset();
         }
         if (transform.position.x > GameManager.topRight.x - radius && direction.x > 0)
         {
             Debug.Log("Left Player Won!!");
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                FindObjectOfType<ScoreManager>().updatePlayerScore(false);
+            }
             Reset();
         }
     }
@@ -80,6 +88,10 @@ public class Ball : MonoBehaviour
             {
                 direction.x = -direction.x;
             }
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                FindObjectOfType<ScoreManager>().increaseHitCount(isRight);
+            }
         }
 
         if (other.tag == "PaddleCPU")
@@ -99,6 +111,11 @@ public class Ball : MonoBehaviour
             if (!isRight && direction.x < 0)
             {
                 direction.x = -direction.x;
+            }
+
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                FindObjectOfType<ScoreManager>().increaseHitCount(isRight);
             }
         }
     }
