@@ -122,4 +122,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void startBall(int index)
+    {
+        balls[index].StartMovingBall();
+    }
 }
