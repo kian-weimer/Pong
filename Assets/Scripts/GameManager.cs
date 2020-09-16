@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Ball ball;
-    Ball newBall;
+    Ball[] balls = new Ball[10];
+    int ballCount = 1;
     public Paddle paddle;
     public PaddleCPU paddleCPU;
 
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         FindObjectOfType<AudioManager>().Play("PongSoundtrack");
 
-        newBall = Instantiate(ball);
+        balls[0] = Instantiate(ball);
 
         if (SceneManager.GetActiveScene().name == "SoloGame")
         {
@@ -81,7 +82,14 @@ public class GameManager : MonoBehaviour
                 gameStartTimer.Stop();
                 gameStartTimer.Reset();
                 HUD.transform.Find("StartTimer").gameObject.SetActive(false);
-                newBall.StartMovingBall();
+
+                foreach (Ball b in balls)
+                {
+                    if (b != null)
+                    {
+                        b.StartMovingBall();
+                    }
+                }
             }
         }
         else if(!ballStarted )
@@ -90,6 +98,13 @@ public class GameManager : MonoBehaviour
             {
                 ballStarted = true;
                 newBall.StartMovingBall();
+            ballStarted = true;
+            foreach (Ball b in balls)
+            {
+                if (b != null)
+                {
+                    b.StartMovingBall();
+                }
             }
         }
     }
@@ -98,4 +113,13 @@ public class GameManager : MonoBehaviour
     {
         HUD.transform.Find("StartTimer").gameObject.SetActive(true);
     }
+
+    public void addBall()
+    {
+        balls[ballCount] = Instantiate(ball);
+        startBall(ballCount);
+        ballCount++;
+    }
+
+    public void startBall(int index)
 }

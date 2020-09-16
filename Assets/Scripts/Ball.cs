@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
     float speed;
 
     float radius;
-    Vector2 direction = new Vector2(0,0);
+    public Vector2 direction = new Vector2(0,0);
 
     void Start()
     {
