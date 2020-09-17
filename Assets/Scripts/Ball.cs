@@ -25,7 +25,6 @@ public class Ball : MonoBehaviour
         {
             FindObjectOfType<GameManager>().ResetHUD();
         }
-        GameManager.beginGame = false;
         GameManager.gameStartTimer.Start();
     }
 

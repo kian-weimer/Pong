@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public PaddleCPU paddleCPU;
 
     bool ballStarted = false;
-    public static bool beginGame = false;
+    public static bool beginGame;
 
     public static Vector2 bottomLeft;
     public static Vector2 topRight;
@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         beginGame = false;
+        HUD.transform.Find("StartGame").gameObject.SetActive(true);
+        HUD.transform.Find("StartTimer").gameObject.SetActive(false);
 
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
@@ -67,21 +69,21 @@ public class GameManager : MonoBehaviour
         }
         if (Input.anyKeyDown && !beginGame)
         {
+            HUD.transform.Find("StartGame").gameObject.SetActive(false);
+            HUD.transform.Find("StartTimer").gameObject.SetActive(true);
             beginGame = true;
             gameStartTimer.Stop();
             gameStartTimer.Reset();
             gameStartTimer.Start();
-            UnityEngine.Debug.Log("fuck on u");
         }
 
         if (SceneManager.GetActiveScene().name != "MainMenu" && beginGame)
         {
             double ballTimerSeconds = gameStartTimer.Elapsed.Seconds;
             HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - ballTimerSeconds).ToString();
-            UnityEngine.Debug.Log(ballTimerSeconds.ToString());
+            
             if (ballTimerSeconds == 4)
             {
-                UnityEngine.Debug.Log("fuck u");
                 ballStarted = false;
                 gameStartTimer.Stop();
                 gameStartTimer.Reset();
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if(!ballStarted )
+        else if(!ballStarted)
         {
             if (SceneManager.GetActiveScene().name == "MainMenu")
             {
