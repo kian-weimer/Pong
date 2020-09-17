@@ -69,23 +69,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("k") && Input.GetKeyDown("i") && Input.GetKeyDown("r") && Input.GetKeyDown("y"))
-        {
-            addBall();
-        }
-        if (Input.anyKeyDown && !beginGame)
-        {
-            HUD.transform.Find("StartGame").gameObject.SetActive(false);
-            HUD.transform.Find("StartTimer").gameObject.SetActive(true);
-
-            beginGame = true;
-            gameStartTimer.Stop();
-            gameStartTimer.Reset();
-            gameStartTimer.Start();
-        }
-
         if (SceneManager.GetActiveScene().name != "MainMenu" && beginGame)
         {
+            if (Input.GetKeyDown("k") && Input.GetKeyDown("i") && Input.GetKeyDown("r") && Input.GetKeyDown("y"))
+            {
+                addBall();
+            }
+            if (Input.anyKeyDown && !beginGame)
+            {
+                HUD.transform.Find("StartGame").gameObject.SetActive(false);
+                HUD.transform.Find("StartTimer").gameObject.SetActive(true);
+
+                beginGame = true;
+                gameStartTimer.Stop();
+                gameStartTimer.Reset();
+                gameStartTimer.Start();
+            }
+
             double ballTimerSeconds = gameStartTimer.Elapsed.Seconds;
             HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - ballTimerSeconds).ToString();
             
