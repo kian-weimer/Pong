@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject HUD;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
-        FindObjectOfType<AudioManager>().Play("PongSoundtrack");
+        FindObjectOfType<AudioManager>().PlayIfNotPlaying("PongSoundtrack");
 
         balls[0] = Instantiate(ball);
 
@@ -129,5 +131,25 @@ public class GameManager : MonoBehaviour
     public void startBall(int index)
     {
         balls[index].StartMovingBall();
+    }
+
+    public void endGame(bool isRight)
+    {
+        if (isRight)
+        {
+            HUD.transform.Find("EndGame").Find("EndGameMessage").GetComponent<Text>().text = "Game Over!\nRight Player Wins!";
+        } else
+        {
+            HUD.transform.Find("EndGame").Find("EndGameMessage").GetComponent<Text>().text = "Game Over!\nLeft Player Wins!";
+        }
+
+        foreach (Ball b in balls)
+        {
+            if (b != null)
+            {
+                b.gameObject.SetActive(false);
+            }
+        }
+        HUD.transform.Find("EndGame").gameObject.SetActive(true);
     }
 }

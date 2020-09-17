@@ -454,6 +454,7 @@ MonoBehaviour:
   ball: {fileID: -5678754943280681448, guid: 566d2dc5ed0062c49adf575c888bf14a, type: 3}
   paddle: {fileID: 8703595382247708936, guid: ff646594ccf084a41a36ba823d3a1086, type: 3}
   paddleCPU: {fileID: 31878987965023668, guid: 2b83cd0c68e6b584a88f512467151be5, type: 3}
+  HUD: {fileID: 0}
 --- !u!4 &581276273
 Transform:
   m_ObjectHideFlags: 0
@@ -656,16 +657,19 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 01cc54a3d0f3583499bf0413cc8ea884, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: WallHit
     clip: {fileID: 8300000, guid: 66990b3fa96cd2242b4e0c1626daeea6, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: PongSoundtrack
     clip: {fileID: 8300000, guid: ea19bb018c0bdaa40ba67efbaa228569, type: 3}
     volume: 0.1
     pitch: 1
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1328067758
 Transform:

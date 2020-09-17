@@ -21,4 +21,15 @@ public class ButtonManager : MonoBehaviour
         GameManager.gameStartTimer.Stop();
         GameManager.gameStartTimer.Reset();
     }
+
+    public void Rematch()
+    {
+        if (SceneManager.GetActiveScene().name == "SoloGame")
+        {
+            StartSolo();
+        } else
+        {
+            StartMultiplayer();
+        }
+    }
 }

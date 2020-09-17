@@ -77,6 +77,10 @@ public class ScoreManager : MonoBehaviour
                 HUD.transform.Find("BonusStats").Find("WinStreak").GetComponent<Text>().text = "Highest Win Streak:\nRight Player, " +
                     rightPlayerWinStreak + " wins";
             }
+            if (rightPlayerScore == 5)
+            {
+                FindObjectOfType<GameManager>().endGame(true);
+            }
         } else
         {
             leftPlayerScore++;
@@ -87,6 +91,10 @@ public class ScoreManager : MonoBehaviour
                 winStreak = leftPlayerWinStreak;
                 HUD.transform.Find("BonusStats").Find("WinStreak").GetComponent<Text>().text = "Highest Win Streak:\nLeft Player, " +
                     leftPlayerWinStreak + " wins";
+            }
+            if (leftPlayerScore == 5)
+            {
+                FindObjectOfType<GameManager>().endGame(false);
             }
         }
 

@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour
     float radius;
     public Vector2 direction = new Vector2(0,0);
 
+    Vector2 previousDirection = new Vector2(0, 0);
+
     void Start()
     {
         radius = transform.localScale.x / 2;
@@ -32,6 +34,7 @@ public class Ball : MonoBehaviour
     {
         direction.x = Random.Range(0, 2) * -2 + 1;
         direction.y = Random.Range(0, 2) * -2 + 1;
+        previousDirection = direction;
     }
 
     // Update is called once per frame
@@ -69,6 +72,8 @@ public class Ball : MonoBehaviour
             }
             Reset();
         }
+
+        previousDirection = direction;
     }
 
     void OnTriggerEnter2D(Collider2D other){
@@ -120,5 +125,11 @@ public class Ball : MonoBehaviour
                 FindObjectOfType<ScoreManager>().increaseHitCount(isRight);
             }
         }
+        previousDirection = direction;
+    }
+
+    public void stop()
+    {
+        direction = new Vector2(0, 0);
     }
 }
