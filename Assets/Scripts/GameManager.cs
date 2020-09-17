@@ -30,8 +30,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         beginGame = false;
-        HUD.transform.Find("StartGame").gameObject.SetActive(true);
-        HUD.transform.Find("StartTimer").gameObject.SetActive(false);
+
+        if(SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            HUD.transform.Find("StartGame").gameObject.SetActive(true);
+            HUD.transform.Find("StartTimer").gameObject.SetActive(false);
+        }
 
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
@@ -73,6 +77,7 @@ public class GameManager : MonoBehaviour
         {
             HUD.transform.Find("StartGame").gameObject.SetActive(false);
             HUD.transform.Find("StartTimer").gameObject.SetActive(true);
+
             beginGame = true;
             gameStartTimer.Stop();
             gameStartTimer.Reset();

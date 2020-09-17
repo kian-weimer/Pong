@@ -5,7 +5,7 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     [SerializeField]
-    float speed;
+    float speed = 0f;
     float height;
 
     string input;
