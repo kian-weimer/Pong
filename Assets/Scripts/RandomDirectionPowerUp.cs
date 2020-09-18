@@ -5,7 +5,11 @@ public class RandomDirectionPowerUp : MonoBehaviour
     // Places the powerup in a ranom Y position along the y axis x remains at home 0
     void Start()
     {
-        float yCord = Random.Range(GameManager.bottomLeft.y * 3f / 4f, GameManager.topRight.y * 3f / 4f);
+        float yCord = 0;
+        while (yCord >= GameManager.topRight.y / 10 || yCord <= GameManager.bottomLeft.y / 10)
+        {
+            yCord = Random.Range(GameManager.bottomLeft.y * 3f / 4f, GameManager.topRight.y * 3f / 4f);
+        }
         transform.position = new Vector2(0, yCord);
     }
 
