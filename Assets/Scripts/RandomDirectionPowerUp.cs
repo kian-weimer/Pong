@@ -17,6 +17,19 @@ public class RandomDirectionPowerUp : MonoBehaviour
         {
             int xDirection = Random.Range(0, 2) * -2 + 1;
             int yDirection = Random.Range(0, 2) * -2 + 1;
+
+            if(xDirection == (int)FindObjectOfType<Ball>().direction.x && yDirection == (int)FindObjectOfType<Ball>().direction.y)
+            {
+                if(Random.Range(0,2) == 1)
+                {
+                    xDirection = (int)FindObjectOfType<Ball>().direction.x * -1;
+                }
+                else
+                {
+                    yDirection = (int)FindObjectOfType<Ball>().direction.y * -1;
+                }    
+            }
+
             FindObjectOfType<Ball>().direction = new Vector2(xDirection, yDirection);
             Destroy(gameObject);
         }

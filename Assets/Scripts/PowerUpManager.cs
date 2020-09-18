@@ -26,7 +26,8 @@ public class PowerUpManager : MonoBehaviour
             totalTime += timeToPowerup;
             timeToPowerup = Random.Range(10, 20);
             timeToPowerup = 5;
-            Instantiate(powerUps[Random.Range(0, 3)]);
+            Instantiate(powerUps[1]);
+            //Instantiate(powerUps[Random.Range(0, 3)]);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEditor.PackageManager.Requests;
 
 public class Ball : MonoBehaviour
 {
+    //current speed of the ball
     public float speed;
 
     float radius;
