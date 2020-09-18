@@ -12,6 +12,12 @@ public class Ball : MonoBehaviour
     void Start()
     {
         radius = transform.localScale.x / 2;
+        if(gameObject.tag == "ballCopy")
+        {
+            Debug.Log("hello");
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+        }
+        
     }
 
     //when the ball is out of bounds on either the left or right side
