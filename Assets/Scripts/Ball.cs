@@ -47,8 +47,11 @@ public class Ball : MonoBehaviour
     //chooses a random direction to sdtart the ball going in
     public void StartMovingBall()
     {
-        direction.x = Random.Range(0, 2) * -2 + 1;
-        direction.y = Random.Range(0, 2) * -2 + 1;
+        if(gameObject.tag != "ballCopy")
+        {
+            direction.x = Random.Range(0, 2) * -2 + 1;
+            direction.y = Random.Range(0, 2) * -2 + 1;
+        }
     }
 
     //moves the ball every frame and detects if it hits the wall on either the top or bottom of the screen
