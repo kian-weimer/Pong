@@ -6,7 +6,7 @@ public class RandomDirectionPowerUp : MonoBehaviour
     void Start()
     {
         float yCord = 0;
-        while (yCord >= GameManager.topRight.y / 10 || yCord <= GameManager.bottomLeft.y / 10)
+        while (yCord <= GameManager.topRight.y / 10 && yCord >= GameManager.bottomLeft.y / 10)
         {
             yCord = Random.Range(GameManager.bottomLeft.y * 3f / 4f, GameManager.topRight.y * 3f / 4f);
         }
