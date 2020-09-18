@@ -81,7 +81,6 @@ public class Ball : MonoBehaviour
 
         {
             FindObjectOfType<AudioManager>().Play("Goal");
-            Debug.Log("Right Player Won!!");
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
                 FindObjectOfType<ScoreManager>().updatePlayerScore(true);
@@ -92,7 +91,6 @@ public class Ball : MonoBehaviour
         if (transform.position.x > GameManager.topRight.x - radius && direction.x > 0)
         {
             FindObjectOfType<AudioManager>().Play("Goal");
-            Debug.Log("Left Player Won!!");
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
                 FindObjectOfType<ScoreManager>().updatePlayerScore(false);
