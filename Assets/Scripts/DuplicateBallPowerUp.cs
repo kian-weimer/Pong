@@ -15,6 +15,7 @@ public class DuplicateBallPowerUp : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
+            FindObjectOfType<AudioManager>().Play("PowerUp");
             FindObjectOfType<GameManager>().addBall(true);
             Destroy(gameObject);
         }

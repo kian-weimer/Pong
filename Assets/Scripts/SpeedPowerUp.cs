@@ -15,6 +15,7 @@ public class SpeedPowerUp : MonoBehaviour
     {
         if(other.tag == "Ball")
         {
+            FindObjectOfType<AudioManager>().Play("PowerUp");
             FindObjectOfType<Ball>().speed = FindObjectOfType<Ball>().speed * 2;
             Destroy(gameObject);
         }

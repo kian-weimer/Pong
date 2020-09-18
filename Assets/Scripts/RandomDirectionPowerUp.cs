@@ -17,6 +17,7 @@ public class RandomDirectionPowerUp : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
+            FindObjectOfType<AudioManager>().Play("PowerUp");
             int xDirection = Random.Range(0, 2) * -2 + 1;
             int yDirection = Random.Range(0, 2) * -2 + 1;
 

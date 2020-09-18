@@ -774,13 +774,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Countdown
     clip: {fileID: 8300000, guid: dceaba470ef61de4383f5f2de52d1fdf, type: 3}
-    volume: 0.6
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Goal
     clip: {fileID: 8300000, guid: a8ac8b7c6a9dd79468aebb1f980dc857, type: 3}
-    volume: 0.75
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: ba4ddd21e73832749968ed6dad09af86, type: 3}
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}

@@ -39,4 +39,9 @@ public class ButtonManager : MonoBehaviour
     {
         FindObjectOfType<ScoreManager>().Reset();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
