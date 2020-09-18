@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
-    // Start is called before the first frame update
+    // Enstures that only one instance of the audio manager is ever created
     void Awake ()
     {
         if (instance == null)
@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        // initialize each sound
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -34,6 +35,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // plays the sound
     public void Play(string name) {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
@@ -44,6 +46,7 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    // stops playing a sound
     public void Stop(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -55,6 +58,7 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
+    // plays a sound only if it is not already playing
     public void PlayIfNotPlaying(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -69,6 +73,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // adjusts the pitch of the sound
     public void changePitch(string name, bool reset)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
