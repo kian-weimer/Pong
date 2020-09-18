@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class RandomDirectionPowerUp : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Places the powerup in a ranom Y position along the y axis x remains at home 0
     void Start()
     {
         float yCord = Random.Range(GameManager.bottomLeft.y * 3f / 4f, GameManager.topRight.y * 3f / 4f);
         transform.position = new Vector2(0, yCord);
     }
 
+    //when this object is hit it randomly changes the direction of the ball
+    //The ball cannot go in the same direction it was going
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Ball")
@@ -31,6 +33,8 @@ public class RandomDirectionPowerUp : MonoBehaviour
             }
 
             FindObjectOfType<Ball>().direction = new Vector2(xDirection, yDirection);
+
+            //after it changes the direction of the ball it deletes itself
             Destroy(gameObject);
         }
     }

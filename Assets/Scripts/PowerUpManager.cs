@@ -6,7 +6,7 @@ public class PowerUpManager : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject[] powerUps;
+    GameObject[] powerUps = new GameObject[3];
 
     int timeToPowerup;
     int totalTime;
