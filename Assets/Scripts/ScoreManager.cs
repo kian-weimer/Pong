@@ -56,6 +56,7 @@ public class ScoreManager : MonoBehaviour
             if (elapsedTimeInSeconds == 0)
             {
                 stopwatch.Start();
+                gameOver = false;
             }
             elapsedTimeInSeconds = stopwatch.Elapsed.Seconds;
             elapsedTimeInMinutes = stopwatch.Elapsed.Minutes;

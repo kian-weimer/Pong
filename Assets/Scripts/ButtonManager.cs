@@ -18,12 +18,14 @@ public class ButtonManager : MonoBehaviour
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(sceneName: "MainMenu");
+        FindObjectOfType<AudioManager>().Stop("Countdown");
         GameManager.gameStartTimer.Stop();
         GameManager.gameStartTimer.Reset();
     }
 
     public void Rematch()
     {
+        FindObjectOfType<AudioManager>().Stop("Countdown");
         if (SceneManager.GetActiveScene().name == "SoloGame")
         {
             StartSolo();
