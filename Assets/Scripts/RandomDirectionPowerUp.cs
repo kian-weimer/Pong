@@ -7,7 +7,7 @@ public class RandomDirectionPowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float yCord = Random.Range(GameManager.bottomLeft.y + 50, GameManager.topRight.y - 50);
+        float yCord = Random.Range(GameManager.bottomLeft.y * 3f / 4f, GameManager.topRight.y * 3f / 4f);
         transform.position = new Vector2(0, yCord);
     }
 

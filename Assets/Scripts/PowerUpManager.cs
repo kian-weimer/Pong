@@ -13,7 +13,7 @@ public class PowerUpManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //timeToPowerup = Random.Range(20, 40);
+        timeToPowerup = Random.Range(10, 20);
         timeToPowerup = 5;
         totalTime = 0;
     }
@@ -24,8 +24,8 @@ public class PowerUpManager : MonoBehaviour
         if(FindObjectOfType<ScoreManager>().elapsedTimeInSeconds == timeToPowerup + totalTime)
         {
             totalTime += timeToPowerup;
-            timeToPowerup = 10;
-            //timeToPowerup = Random.Range(20, 40);
+            timeToPowerup = Random.Range(10, 20);
+            timeToPowerup = 5;
             Instantiate(powerUps[Random.Range(0, 3)]);
         }
     }
