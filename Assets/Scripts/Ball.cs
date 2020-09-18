@@ -19,6 +19,10 @@ public class Ball : MonoBehaviour
 
     public void Reset()
     {
+        if (!ScoreManager.gameOver)
+        {
+            FindObjectOfType<AudioManager>().Play("Countdown");
+        }
         transform.position = new Vector2(0, 0);
         transform.Translate(new Vector2(0, 0));
         direction = new Vector2(0, 0);
@@ -55,21 +59,26 @@ public class Ball : MonoBehaviour
         
         // Game Over
         if (transform.position.x < GameManager.bottomLeft.x + radius && direction.x < 0)
+
         {
+            FindObjectOfType<AudioManager>().Play("Goal");
             Debug.Log("Right Player Won!!");
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
                 FindObjectOfType<ScoreManager>().updatePlayerScore(true);
             }
+            FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", true);
             Reset();
         }
         if (transform.position.x > GameManager.topRight.x - radius && direction.x > 0)
         {
+            FindObjectOfType<AudioManager>().Play("Goal");
             Debug.Log("Left Player Won!!");
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
                 FindObjectOfType<ScoreManager>().updatePlayerScore(false);
             }
+            FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", true);
             Reset();
         }
 
@@ -84,6 +93,7 @@ public class Ball : MonoBehaviour
             if(speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
+                FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", false);
             }
 
             if(isRight && direction.x > 0)
@@ -108,6 +118,7 @@ public class Ball : MonoBehaviour
             if (speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
+                FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", false);
             }
 
             if (isRight && direction.x > 0)

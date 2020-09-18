@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     public int leftPlayerWinStreak;
     public bool winStreakHolderIsRight;
 
-    public double elapsedTimeInSeconds;
+    public double elapsedTimeInSeconds = 0;
     public int elapsedTimeInMinutes;
     public string elapsedTimeAsString;
 
@@ -30,6 +30,8 @@ public class ScoreManager : MonoBehaviour
 
     public double longestRoundInSeconds;
     public string longestRoundAsString;
+
+    public static bool gameOver = false;
 
 
     public GameObject HUD;
@@ -42,7 +44,6 @@ public class ScoreManager : MonoBehaviour
         leftPlayerScore = 0;
         rightPlayerScore = 0;
         elapsedTimeInSeconds = 0;
-        stopwatch.Start();
         HUD.transform.Find("ScoreUI").GetComponent<Text>().text = scoreBoard;
         HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
     }
@@ -50,17 +51,24 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        elapsedTimeInSeconds = stopwatch.Elapsed.Seconds;
-        elapsedTimeInMinutes = stopwatch.Elapsed.Minutes;
-
-        elapsedTimeAsString = String.Format("{0:00}:{1:00}", elapsedTimeInMinutes, elapsedTimeInSeconds % 60);
-        
-        HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
-
-        if (Input.GetKeyDown("i"))
+        if (GameManager.beginGame)
         {
-            HUD.transform.Find("BonusStats").gameObject.SetActive(!HUD.transform.Find("BonusStats").gameObject.activeSelf);
-            HUD.transform.Find("BonusStatsPrompt").gameObject.SetActive(!HUD.transform.Find("BonusStatsPrompt").gameObject.activeSelf);
+            if (elapsedTimeInSeconds == 0)
+            {
+                stopwatch.Start();
+            }
+            elapsedTimeInSeconds = stopwatch.Elapsed.Seconds;
+            elapsedTimeInMinutes = stopwatch.Elapsed.Minutes;
+
+            elapsedTimeAsString = String.Format("{0:00}:{1:00}", elapsedTimeInMinutes, elapsedTimeInSeconds % 60);
+
+            HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
+
+            if (Input.GetKeyDown("i"))
+            {
+                HUD.transform.Find("BonusStats").gameObject.SetActive(!HUD.transform.Find("BonusStats").gameObject.activeSelf);
+                HUD.transform.Find("BonusStatsPrompt").gameObject.SetActive(!HUD.transform.Find("BonusStatsPrompt").gameObject.activeSelf);
+            }
         }
     }
 
@@ -79,6 +87,7 @@ public class ScoreManager : MonoBehaviour
             }
             if (rightPlayerScore == 5)
             {
+                gameOver = true;
                 FindObjectOfType<GameManager>().endGame(true);
             }
         } else
@@ -94,6 +103,7 @@ public class ScoreManager : MonoBehaviour
             }
             if (leftPlayerScore == 5)
             {
+                gameOver = true;
                 FindObjectOfType<GameManager>().endGame(false);
             }
         }
@@ -143,5 +153,46 @@ public class ScoreManager : MonoBehaviour
                 "Total Hits: " + numberOfLeftHits;
             ;
         }
+    }
+
+    public void Reset()
+    {
+        // leftPlayerScore = 0;
+        // rightPlayerScore = 0;
+        // scoreBoard = String.Format("{0:00} | {1:00}", 0, 0);
+        // HUD.transform.Find("ScoreUI").GetComponent<Text>().text = scoreBoard;
+
+        numberOfHits = 0;
+        HUD.transform.Find("BonusStats").Find("TotalHitCounter").GetComponent<Text>().text = "Total Hits: " + numberOfHits;
+        numberOfRoundHits = 0;
+        HUD.transform.Find("BonusStats").Find("RoundHitCounter").GetComponent<Text>().text = "Round Hits: " + numberOfRoundHits;
+        numberOfLeftHits = 0;
+        HUD.transform.Find("BonusStats").Find("LeftPlayer").Find("TotalHitCounter").GetComponent<Text>().text =
+                "Total Hits: " + numberOfLeftHits;
+        numberOfRightHits = 0;
+        HUD.transform.Find("BonusStats").Find("RightPlayer").Find("TotalHitCounter").GetComponent<Text>().text =
+                "Total Hits: " + numberOfRightHits;
+
+        winStreak = 0;
+        HUD.transform.Find("BonusStats").Find("WinStreak").GetComponent<Text>().text = "Highest Win Streak:\n--------";
+        rightPlayerWinStreak = 0;
+        HUD.transform.Find("BonusStats").Find("RightPlayer").Find("WinStreak").GetComponent<Text>().text = "Streak: " + rightPlayerWinStreak + " wins";
+        leftPlayerWinStreak = 0;
+        HUD.transform.Find("BonusStats").Find("LeftPlayer").Find("WinStreak").GetComponent<Text>().text = "Streak: " + leftPlayerWinStreak + " wins";
+        winStreakHolderIsRight = false;
+
+        //elapsedTimeInSeconds = 0.0;
+        //elapsedTimeInMinutes = 0;
+
+        //elapsedTimeAsString = String.Format("{0:00}:{1:00}", elapsedTimeInMinutes, elapsedTimeInSeconds % 60);
+        //HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
+
+        //roundStartTimeInSeconds = 0;
+        //roundStartTimeMinutes = 0;
+
+        longestRoundInSeconds = 0;
+        longestRoundAsString = longestRoundAsString = String.Format("{0:00}:{1:00}", 0, 0);
+        HUD.transform.Find("BonusStats").Find("LongestRound").GetComponent<Text>().text = "Longest Round: " + longestRoundAsString;
+        //stopwatch.Reset();
     }
 }

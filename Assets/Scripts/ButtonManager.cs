@@ -32,4 +32,9 @@ public class ButtonManager : MonoBehaviour
             StartMultiplayer();
         }
     }
+
+    public void resetStats()
+    {
+        FindObjectOfType<ScoreManager>().Reset();
+    }
 }

@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.anyKeyDown && !beginGame && SceneManager.GetActiveScene().name != "MainMenu")
         {
+            FindObjectOfType<AudioManager>().Play("Countdown");
             HUD.transform.Find("StartGame").gameObject.SetActive(false);
             HUD.transform.Find("StartTimer").gameObject.SetActive(true);
 
@@ -154,7 +155,7 @@ public class GameManager : MonoBehaviour
         {
             if (b != null)
             {
-                b.gameObject.SetActive(false);
+                b.GetComponent<SpriteRenderer>().gameObject.SetActive(false);
             }
         }
         HUD.transform.Find("EndGame").gameObject.SetActive(true);
