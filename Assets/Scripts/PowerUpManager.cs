@@ -19,7 +19,7 @@ public class PowerUpManager : MonoBehaviour
     // if the game has reached the next time to powerup it will spawn a new random powerup out of a selection of 3
     void Update()
     {
-        if (FindObjectOfType<ScoreManager>().elapsedTimeInSeconds >= timeToPowerup + totalTime)
+        if ((int)FindObjectOfType<ScoreManager>().elapsedTimeInSeconds >= timeToPowerup + totalTime)
         {
             totalTime += timeToPowerup;
             timeToPowerup = Random.Range(10, 30);
