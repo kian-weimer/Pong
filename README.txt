@@ -2,9 +2,7 @@ PONG GAME
 Created by Kian Weimer & Rys Huehnergarth
 
 How to Run:
-
-
-
+	Double click on the 'Pong Remastered' icon and enjoy
 
 How to Play:
 	This game is a variation of the traditional pong game.

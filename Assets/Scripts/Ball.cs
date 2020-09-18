@@ -14,8 +14,7 @@ public class Ball : MonoBehaviour
         radius = transform.localScale.x / 2;
         if(gameObject.tag == "ballCopy")
         {
-            Debug.Log("hello");
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0.2f, .75f);
         }
         
     }
