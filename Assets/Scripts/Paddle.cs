@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
@@ -10,18 +8,21 @@ public class Paddle : MonoBehaviour
 
     string input;
     public bool isRight;
-    // Start is called before the first frame update
+
+    //sets the height of the paddle
     void Start()
     {
         height = transform.localScale.y;
     }
 
+    //creates the paddle
     public void Init(bool isRightPaddle)
     {
 
         isRight = isRightPaddle;
         Vector2 pos = Vector2.zero;
 
+        //places the paddle on the right side
         if (isRightPaddle)
         {
             pos = new Vector2(GameManager.topRight.x, 0);
@@ -30,6 +31,7 @@ public class Paddle : MonoBehaviour
             input = "PaddleRight";
         }
 
+        //places the paddle on the left side
         else
         {
             pos = new Vector2(GameManager.bottomLeft.x, 0);
@@ -45,13 +47,14 @@ public class Paddle : MonoBehaviour
     }
 
 
-    // Update is called once per frame
+    // Moves the paddle as you press the keys
     void Update()
     {
+        //the input is ties to w and s for left paddle and the right paddle is tied to the up and down arrow
         float move = Input.GetAxis(input) * Time.deltaTime * speed;
 
         // Restrict paddle movement
-        if(transform.position.y < GameManager.bottomLeft.y + height/2 && move < 0)
+        if (transform.position.y < GameManager.bottomLeft.y + height / 2 && move < 0)
         {
             move = 0;
         }

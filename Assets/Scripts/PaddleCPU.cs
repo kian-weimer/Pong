@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PaddleCPU : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class PaddleCPU : MonoBehaviour
     float height;
 
     public bool isRight;
-    Ball ball; 
+    Ball ball;
     public float offset;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +15,7 @@ public class PaddleCPU : MonoBehaviour
         height = transform.localScale.y;
         ball = FindObjectOfType<Ball>();
     }
-    
+
     public void Init(bool isRightPaddle)
     {
         isRight = isRightPaddle;
@@ -41,17 +39,18 @@ public class PaddleCPU : MonoBehaviour
         transform.position = pos;
     }
 
-    // Update is called once per frame
+    //the CPU paddle it will follow the ball and other than that acts like a normal paddle
     void Update()
     {
         float move = 0;
+        // Follows the ball
         if (ball.transform.position.y > transform.position.y + offset)
         {
             move = 1 * Time.deltaTime * speed;
         }
         else if (ball.transform.position.y < transform.position.y - offset)
         {
-             move = -1 * Time.deltaTime * speed;
+            move = -1 * Time.deltaTime * speed;
         }
         // Restrict paddle movement
         if (transform.position.y < GameManager.bottomLeft.y + height / 2 && move < 0)
@@ -86,8 +85,6 @@ public class PaddleCPU : MonoBehaviour
                 speed = 7;
             }
         }
-
-
         transform.Translate(move * Vector2.up);
     }
 }

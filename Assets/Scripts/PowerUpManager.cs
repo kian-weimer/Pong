@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
 {
@@ -10,24 +8,22 @@ public class PowerUpManager : MonoBehaviour
 
     int timeToPowerup;
     int totalTime;
-    // Start is called before the first frame update
+
+    // sets a random amount of time till a powerupo appears and also sets the total elapsed time to be 0
     void Start()
     {
-        timeToPowerup = Random.Range(10, 20);
-        timeToPowerup = 5;
+        timeToPowerup = Random.Range(10, 30);
         totalTime = 0;
     }
 
-    // Update is called once per frame
+    // if the game has reached the next time to powerup it will spawn a new random powerup out of a selection of 3
     void Update()
     {
-        if(FindObjectOfType<ScoreManager>().elapsedTimeInSeconds == timeToPowerup + totalTime)
+        if (FindObjectOfType<ScoreManager>().elapsedTimeInSeconds >= timeToPowerup + totalTime)
         {
             totalTime += timeToPowerup;
-            timeToPowerup = Random.Range(10, 20);
-            timeToPowerup = 5;
-            Instantiate(powerUps[1]);
-            //Instantiate(powerUps[Random.Range(0, 3)]);
+            timeToPowerup = Random.Range(10, 30);
+            Instantiate(powerUps[Random.Range(0, 3)]);
         }
     }
 }

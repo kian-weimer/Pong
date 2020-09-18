@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,22 +23,25 @@ public class GameManager : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
+    // Sets up the game
     void Start()
     {
         beginGame = false;
 
-        if(SceneManager.GetActiveScene().name != "MainMenu")
+        // if in a game scence initalizies the start messages
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             HUD.transform.Find("StartGame").gameObject.SetActive(true);
             HUD.transform.Find("StartTimer").gameObject.SetActive(false);
         }
 
+        // sets up the screen dimensions
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
         topRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
         FindObjectOfType<AudioManager>().PlayIfNotPlaying("PongSoundtrack");
 
+        //creates the starting ball
         balls[0] = Instantiate(ball);
 
         if (SceneManager.GetActiveScene().name == "SoloGame")
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+        // when a key is pressed it begins the game
         if (Input.anyKeyDown && !beginGame && SceneManager.GetActiveScene().name != "MainMenu")
         {
             FindObjectOfType<AudioManager>().Play("Countdown");
@@ -82,16 +83,13 @@ public class GameManager : MonoBehaviour
             gameStartTimer.Start();
         }
 
+        // runs the ball timer and if the time is up it starts moving the ball and begins the stats
         if (SceneManager.GetActiveScene().name != "MainMenu" && beginGame)
         {
-            if (Input.GetKeyDown("k") && Input.GetKeyDown("i") && Input.GetKeyDown("r") && Input.GetKeyDown("y"))
-            {
-                addBall();
-            }
 
             double ballTimerSeconds = gameStartTimer.Elapsed.Seconds;
             HUD.transform.Find("StartTimer").GetComponent<Text>().text = (3.0 - ballTimerSeconds).ToString();
-            
+
             if (ballTimerSeconds == 4)
             {
                 ballStarted = false;
@@ -108,8 +106,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if(!ballStarted)
+        else if (!ballStarted)
         {
+            // if the game is in the main menu it just begins
             if (SceneManager.GetActiveScene().name == "MainMenu")
             {
                 ballStarted = true;
@@ -124,11 +123,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // resets the hud start timer text objects
     public void ResetHUD()
     {
         HUD.transform.Find("StartTimer").gameObject.SetActive(true);
     }
 
+    // adds another ball to the game
     public void addBall(bool isCopy = false)
     {
         balls[ballCount] = Instantiate(ball);
@@ -140,17 +141,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // starts moving the balls
     public void startBall(int index)
     {
         balls[index].StartMovingBall();
     }
 
+    // Happens when one of the player wins
     public void endGame(bool isRight)
     {
         if (isRight)
         {
             HUD.transform.Find("EndGame").Find("EndGameMessage").GetComponent<Text>().text = "Game Over!\nRight Player Wins!";
-        } else
+        }
+        else
         {
             HUD.transform.Find("EndGame").Find("EndGameMessage").GetComponent<Text>().text = "Game Over!\nLeft Player Wins!";
         }

@@ -1,8 +1,11 @@
-﻿using UnityEngine.Audio;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
-public class Sound {
+
+// used in all of the sounds of the game
+// variables of the class are used throughout methods
+public class Sound
+{
 
     public string name;
 
@@ -10,7 +13,7 @@ public class Sound {
 
     [Range(0f, 1f)]
     public float volume;
-    [Range(0.1f , 3f)]
+    [Range(0.1f, 3f)]
     public float pitch;
 
     public bool loop;

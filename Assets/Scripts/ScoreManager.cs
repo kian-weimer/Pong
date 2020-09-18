@@ -38,7 +38,7 @@ public class ScoreManager : MonoBehaviour
     Stopwatch stopwatch = new Stopwatch();
 
 
-    // Start is called before the first frame update
+    // begins the stats and sets up the hud
     void Awake()
     {
         leftPlayerScore = 0;
@@ -48,7 +48,8 @@ public class ScoreManager : MonoBehaviour
         HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
     }
 
-    // Update is called once per frame
+    // keeps time witht he stop watch
+    // if the user presses i the game displays the extra stats
     void Update()
     {
         if (GameManager.beginGame)
@@ -73,8 +74,11 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    // updates the players score when a ball reaches the end of the screen is called in the ball class
+    // if a player reaches 5 it ends the game
     public void updatePlayerScore(bool isRight)
     {
+        //updates the right players score
         if (isRight)
         {
             rightPlayerScore++;
@@ -91,7 +95,10 @@ public class ScoreManager : MonoBehaviour
                 gameOver = true;
                 FindObjectOfType<GameManager>().endGame(true);
             }
-        } else
+        } 
+
+        //updates the left players score
+        else
         {
             leftPlayerScore++;
             leftPlayerWinStreak++;
@@ -109,6 +116,7 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
+        //updates the HUD and resets round stats
         HUD.transform.Find("BonusStats").Find("RightPlayer").Find("WinStreak").GetComponent<Text>().text = "Streak: " + rightPlayerWinStreak + " wins";
         HUD.transform.Find("BonusStats").Find("LeftPlayer").Find("WinStreak").GetComponent<Text>().text = "Streak: " + leftPlayerWinStreak + " wins";
 
@@ -134,6 +142,7 @@ public class ScoreManager : MonoBehaviour
         roundStartTimeInSeconds = stopwatch.Elapsed.Seconds;
     }
 
+    // increases the number of hits in the hud
     public void increaseHitCount(bool isRight)
     {
         numberOfHits++;
@@ -156,13 +165,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    // clears out the stats to the inital values and updates the HUD
     public void Reset()
     {
-        // leftPlayerScore = 0;
-        // rightPlayerScore = 0;
-        // scoreBoard = String.Format("{0:00} | {1:00}", 0, 0);
-        // HUD.transform.Find("ScoreUI").GetComponent<Text>().text = scoreBoard;
-
         numberOfHits = 0;
         HUD.transform.Find("BonusStats").Find("TotalHitCounter").GetComponent<Text>().text = "Total Hits: " + numberOfHits;
         numberOfRoundHits = 0;
@@ -182,18 +187,8 @@ public class ScoreManager : MonoBehaviour
         HUD.transform.Find("BonusStats").Find("LeftPlayer").Find("WinStreak").GetComponent<Text>().text = "Streak: " + leftPlayerWinStreak + " wins";
         winStreakHolderIsRight = false;
 
-        //elapsedTimeInSeconds = 0.0;
-        //elapsedTimeInMinutes = 0;
-
-        //elapsedTimeAsString = String.Format("{0:00}:{1:00}", elapsedTimeInMinutes, elapsedTimeInSeconds % 60);
-        //HUD.transform.Find("Time").GetComponent<Text>().text = elapsedTimeAsString;
-
-        //roundStartTimeInSeconds = 0;
-        //roundStartTimeMinutes = 0;
-
         longestRoundInSeconds = 0;
         longestRoundAsString = longestRoundAsString = String.Format("{0:00}:{1:00}", 0, 0);
         HUD.transform.Find("BonusStats").Find("LongestRound").GetComponent<Text>().text = "Longest Round: " + longestRoundAsString;
-        //stopwatch.Reset();
     }
 }

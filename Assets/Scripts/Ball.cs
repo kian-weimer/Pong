@@ -1,28 +1,29 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
-using UnityEditor.PackageManager.Requests;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
-    //current speed of the ball
     public float speed;
-
     float radius;
-    public Vector2 direction = new Vector2(0,0);
 
-    Vector2 previousDirection = new Vector2(0, 0);
+    public Vector2 direction = new Vector2(0, 0);
 
+    //sets up the balls radius starts moving in a later method.
     void Start()
     {
         radius = transform.localScale.x / 2;
     }
 
+    //when the ball is out of bounds on either the left or right side
     public void Reset()
     {
+        //if the ball is a copy it will delete itself
         if (gameObject.tag == "ballCopy")
         {
             Destroy(gameObject);
         }
+
+        //if the ball isn't a copy starts a new countdown and resets the ball to the middle of the screen
         else
         {
             if (!ScoreManager.gameOver)
@@ -40,17 +41,17 @@ public class Ball : MonoBehaviour
             }
             GameManager.gameStartTimer.Start();
         }
-        
+
     }
 
+    //chooses a random direction to sdtart the ball going in
     public void StartMovingBall()
     {
         direction.x = Random.Range(0, 2) * -2 + 1;
         direction.y = Random.Range(0, 2) * -2 + 1;
-        previousDirection = direction;
     }
 
-    // Update is called once per frame
+    //moves the ball every frame and detects if it hits the wall on either the top or bottom of the screen
     void Update()
     {
         transform.Translate(direction * speed * Time.deltaTime);
@@ -65,7 +66,7 @@ public class Ball : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("WallHit");
             direction.y = -direction.y;
         }
-        
+
         // Game Over
         if (transform.position.x < GameManager.bottomLeft.x + radius && direction.x < 0)
 
@@ -90,22 +91,25 @@ public class Ball : MonoBehaviour
             FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", true);
             Reset();
         }
-
-        previousDirection = direction;
     }
 
-    void OnTriggerEnter2D(Collider2D other){
-        if(other.tag == "Paddle")
+    //used to detect collions with the paddles
+    //the ball will speed up on each hit as long as the scene is not main menu
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        //if it hits a player paddle
+        if (other.tag == "Paddle")
         {
             FindObjectOfType<AudioManager>().Play("PaddleHit");
             bool isRight = other.GetComponent<Paddle>().isRight;
-            if(speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
+            if (speed < 10 && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 speed = speed * 1.1f;
                 FindObjectOfType<AudioManager>().changePitch("PongSoundtrack", false);
             }
 
-            if(isRight && direction.x > 0)
+            if (isRight && direction.x > 0)
             {
                 direction.x = -direction.x;
             }
@@ -114,12 +118,14 @@ public class Ball : MonoBehaviour
             {
                 direction.x = -direction.x;
             }
+
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {
                 FindObjectOfType<ScoreManager>().increaseHitCount(isRight);
             }
         }
 
+        //if it hits a computer paddle
         if (other.tag == "PaddleCPU")
         {
             FindObjectOfType<AudioManager>().Play("PaddleHit");
@@ -145,11 +151,5 @@ public class Ball : MonoBehaviour
                 FindObjectOfType<ScoreManager>().increaseHitCount(isRight);
             }
         }
-        previousDirection = direction;
-    }
-
-    public void stop()
-    {
-        direction = new Vector2(0, 0);
     }
 }
