@@ -4,8 +4,7 @@ using UnityEditor.PackageManager.Requests;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField]
-    float speed;
+    public float speed;
 
     float radius;
     public Vector2 direction = new Vector2(0,0);
@@ -19,19 +18,28 @@ public class Ball : MonoBehaviour
 
     public void Reset()
     {
-        if (!ScoreManager.gameOver)
+        if (gameObject.tag == "ballCopy")
         {
-            FindObjectOfType<AudioManager>().Play("Countdown");
+            Destroy(gameObject);
         }
-        transform.position = new Vector2(0, 0);
-        transform.Translate(new Vector2(0, 0));
-        direction = new Vector2(0, 0);
-        speed = 5;
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        else
         {
-            FindObjectOfType<GameManager>().ResetHUD();
+            if (!ScoreManager.gameOver)
+            {
+                FindObjectOfType<AudioManager>().Play("Countdown");
+            }
+
+            transform.position = new Vector2(0, 0);
+            transform.Translate(new Vector2(0, 0));
+            direction = new Vector2(0, 0);
+            speed = 5;
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                FindObjectOfType<GameManager>().ResetHUD();
+            }
+            GameManager.gameStartTimer.Start();
         }
-        GameManager.gameStartTimer.Start();
+        
     }
 
     public void StartMovingBall()

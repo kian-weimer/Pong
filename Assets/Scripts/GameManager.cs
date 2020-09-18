@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Ball ball;
-    Ball[] balls = new Ball[100];
+    public Ball[] balls = new Ball[100];
     int ballCount = 1;
     public Paddle paddle;
     public PaddleCPU paddleCPU;
@@ -129,11 +129,15 @@ public class GameManager : MonoBehaviour
         HUD.transform.Find("StartTimer").gameObject.SetActive(true);
     }
 
-    public void addBall()
+    public void addBall(bool isCopy = false)
     {
         balls[ballCount] = Instantiate(ball);
         startBall(ballCount);
         ballCount++;
+        if (isCopy)
+        {
+            balls[ballCount - 1].tag = "ballCopy";
+        }
     }
 
     public void startBall(int index)
